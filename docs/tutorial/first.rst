@@ -3,7 +3,7 @@ About the map folder
 
 .. toctree::
    :maxdepth: 1
-   :caption: 目次:
+   :caption: Contents:
 
 * :ref:`kouzou`
 * :ref:`siyou`

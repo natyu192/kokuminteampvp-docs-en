@@ -15,7 +15,6 @@ How to write config.yml in the map folder.
 .. _base:
 
 Basic config.yml
-
 ----------------------------
 
 ::
@@ -30,7 +29,7 @@ Basic config.yml
 ===================== ====================================== ===================================== =============
 Item(\* is required)  Description                            Value                                 Default
 ===================== ====================================== ===================================== =============
-\*name                表示されるマップ名。                   String
+\*name                The name of the map.                   String
 \*gametype            The gametype.                          :doc:`../data/gametype`
 allow-build           Allows breaking/placing blocks.        true/false                            true
 fall-damage           Enables fall damage.                   true/false                            true
@@ -39,10 +38,10 @@ allow-damage          Enables any damage.                    true/false         
 
 .. _team:
 
-チームの設定
+Teams
 -----------------------
 
-Team can be defined like this.
+Teams can be defined like this.
 
 ::
 
@@ -68,10 +67,10 @@ Item(\* is required)  Description                                               
 
 .. _spawn:
 
-スポーン位置の設定
+Spawns
 -----------------------
 
-スポーン位置はこのように定義します。
+Spawns can be defined like this.
 
 ::
 
@@ -95,21 +94,21 @@ Item(\* is required)  Description                                               
 	    yaw: -90
 	    pitch: 0
 
-``red`` や ``blue`` はチームの ID で、そのチームのスポーン位置です。
+The value such as ``red`` and ``blue`` are Team ID.
 
-================= ======================================================= =========================================== =========================
-項目(\*は必須)    説明                                                    値                                          デフォルト値
-================= ======================================================= =========================================== =========================
-\*spectator       サーバーへのログイン時に出る位置です。                  X, Y, Z
-================= ======================================================= =========================================== =========================
+===================== ======================================================= =========================================== =========================
+Item(\* is required)  Description                                             Value                                       Default
+===================== ======================================================= =========================================== =========================
+\*spectator           The spawn position when a player join the game.         X, Y, Z
+===================== ======================================================= =========================================== =========================
 
 .. _region:
 
-Region の設定
+Regions
 ---------------
-Region を設定することで、相手チーム拠点への立ち入りや建築を制限したりすることができます。 Region はいくつでも設定することができます。
+By setting regions up, deny entering and building in an enemy's base. Region can be defined as many as you want.
 
-Region はこのように定義します。
+Regions can be defined like this.
 
 ::
 
@@ -126,7 +125,7 @@ Region はこのように定義します。
 	      x: 15.5
 	      y: 255
 	      z: -118.5
-	    deny-message: '敵のチームの拠点に入ることはできません'
+	    deny-message: "You cannot enter the enemy's base."
 	  redbase:
 	    team: red
 	    name: 'Red Base'
@@ -139,28 +138,30 @@ Region はこのように定義します。
 	      x: -15.5
 	      y: 255
 	      z: 118.5
-	    deny-message: '敵のチームの拠点に入ることはできません'
+	    deny-message: "You cannot enter the enemy's base."
 
-``bluebase`` や ``redbase`` は内部で処理するための ID なので、 **半角英数字** であれば何でも設定できます。
+The value such as ``bluebase`` and ``redbase`` are used internally. It can be anything.
 
-================= ======================================================= ===================================== =========================
-項目(\*は必須)    説明                                                    値                                    デフォルト値
-================= ======================================================= ===================================== =========================
-\*team            enter の影響を受けないチームの ID 。                    チーム ID
-\*name            Region の名前。将来的に使われる可能性があります。       文字列
-enter             Region に入れるかどうか。                               true/false                            false
-\*pos1            Region の範囲の地点1。                                  X, Y, Z
-\*pos2            Region の範囲の地点2。                                  X, Y, Z
-deny-message      Region に入れないチームが入ろうとした時のメッセージ。   文字列                                そのエリアには入れません
-================= ======================================================= ===================================== =========================
+===================== ============================================================ ===================================== ============================
+Item(\* is required)  Description                                                  Value                                 Default
+===================== ============================================================ ===================================== ============================
+\*team                The team that can bypass ``enter`` flag.                     Team ID
+\*name                | The name of Region.                                        String
+                      | This is currently not used but may be used in the future.
+enter                 Allows enter the Region.                                     true/false                            false
+\*pos1                Pos 1 of the Region.                                         X, Y, Z
+\*pos2                Pos 2 of the Region.                                         X, Y, Z
+deny-message          | The message that                                           String                                You cannot enter that area.
+                      | displayed when a team that cannot enter the region.
+===================== ============================================================ ===================================== ============================
 
 .. _kit:
 
-キットの設定
+Kits
 ---------------
-キットはチームごとでも設定できます。
+Kits can be defined per team.
 
-キットはこのように定義します。
+Kits can be defined like this.
 
 ::
 
@@ -250,32 +251,34 @@ deny-message      Region に入れないチームが入ろうとした時のメ�
 	      amount: 1
 	      soulbound: false
 	      lore:
-	      - 'おいしいりんご'
-	      - 'キル報酬のりんごだよ'
+	      - 'Tasty apple'
+	      - 'An apple for Kill reward.'
 
-``red`` や ``blue`` はチームの ID で、そのチームのみに適用されるキットです。 ``parent`` は、そのチーム専用のキットに上書きされます。 ``kill-rewards`` はキルしたときにもらえるアイテムです。
+The value such as ``red`` and ``blue`` are team ID, and the kit defined there will be applied for only that team. ``parent`` kit will be applied on the team kit.
 
-``helmet`` や ``chestplate`` 等は内部で処理するための ID なので、 **半角英数字** であれば何でも設定できます。
+``kill-rewards`` items are given on killing.
 
-アイテムの定義:
+The value such as ``helmet`` and ``chestplate`` are used internally. It can be anything.
 
-================= ======================================================= =========================================== =========================
-項目(\*は必須)    説明                                                    値                                          デフォルト値
-================= ======================================================= =========================================== =========================
-\*material        アイテムの種類。                                        :doc:`../data/material`
-\*slot            アイテムがセットされるスロット。                        数値
-amount            アイテムの個数。                                        数値                                        1
-damage            アイテムのダメージ値。                                  数値                                        0
-soulbound         true にするとドロップ時に消滅するようになる。           true/false                                  false
-displayName       アイテムの表示名。                                      文字列
-lore              アイテムの説明文。                                      文字列の配列
-unbreakable       true にすると耐久値が無限になる。                       true/false                                  false
-enchantments      エンチャントを付与する。                                :doc:`../data/enchantment`:レベル(数値)
-leather_color     革防具に染色する。                                      :doc:`../data/dyecolor` または カラーコード
-================= ======================================================= =========================================== =========================
+Item define:
 
-``leather_color`` は、 :doc:`../data/dyecolor` か Hex 形式のカラーコードが指定可能です。 (例: #5555ff) Hex形式で指定する場合、 ``''`` で囲まなければなりません。
+===================== ======================================================= =========================================== =========================
+Item(\* is required)  Description                                             Value                                       Default
+===================== ======================================================= =========================================== =========================
+\*material            The type of the item.                                   :doc:`../data/material`
+\*slot                The slot that the item will be set.                     Integer
+amount                The amount of the item.                                 Integer                                     1
+damage                The damage of the item.                                 Integer                                     0
+soulbound             If set true, it will be disappear when it was dropped.  true/false                                  false
+displayName           The name of the item.                                   String
+lore                  The description of the item.                            String
+unbreakable           If set true, it will have unbreakable tag.              true/false                                  false
+enchantments          Applies enchantments                                    :doc:`../data/enchantment`:Level(Integer)
+leather_color         Dyes Leather armors.                                    :doc:`../data/dyecolor` or color code.
+===================== ======================================================= =========================================== =========================
 
-``slot`` はこちらの画像を参考に値を割り当ててください。
+``leather_color`` can be specified with :doc:`../data/dyecolor` or Hex formatted color code. (Example: #5555ff) If you set with Hex formatted color code, it must be surrounded with ``''`` .
+
+For ``slot`` , this image can be helpful.
 
 .. image:: inventory.png
